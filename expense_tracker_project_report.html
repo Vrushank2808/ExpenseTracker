@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Paisa Expense Tracker - Project Report</title>
+<style>
+  @page { size: A4; margin: 18mm 17mm 18mm; }
+  :root { --ink: #3a2f26; --muted: #796b5f; --paper: #fffdf9; --cream: #f5ebe0; --sand: #e3d5ca; --line: #d6ccc2; --accent: #8d6e5a; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: Arial, sans-serif; line-height: 1.55; font-size: 10.5pt; }
+  h1, h2, h3 { font-family: Georgia, serif; color: var(--ink); margin-top: 0; }
+  h1 { font-size: 31pt; line-height: 1.1; margin-bottom: 10px; }
+  h2 { font-size: 19pt; border-bottom: 2px solid var(--sand); padding-bottom: 7px; margin-bottom: 15px; }
+  h3 { font-size: 12.5pt; margin: 18px 0 6px; }
+  p { margin: 0 0 11px; }
+  .cover { min-height: 245mm; display: flex; flex-direction: column; justify-content: center; padding: 22mm 14mm; background: var(--cream); border: 1px solid var(--line); }
+  .eyebrow { text-transform: uppercase; letter-spacing: 2px; color: var(--accent); font-size: 9pt; font-weight: bold; margin-bottom: 18px; }
+  .subtitle { font-size: 14pt; color: var(--muted); max-width: 125mm; }
+  .meta { margin-top: 34px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--muted); }
+  .page { page-break-before: always; }
+  .intro-box { background: var(--cream); padding: 14px 16px; border-left: 5px solid var(--accent); margin-bottom: 17px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .card { border: 1px solid var(--line); background: #fff; padding: 11px 13px; border-radius: 5px; }
+  .card strong { color: var(--accent); }
+  ul { margin-top: 5px; padding-left: 22px; }
+  li { margin-bottom: 4px; }
+  pre { background: #2f2925; color: #f9eee4; padding: 12px 14px; border-radius: 5px; font: 8.2pt/1.45 Consolas, monospace; white-space: pre-wrap; overflow-wrap: anywhere; margin: 8px 0 15px; }
+  code { font-family: Consolas, monospace; background: #f1e9e2; padding: 1px 4px; border-radius: 3px; }
+  .structure { background: #2f2925; color: #f9eee4; padding: 14px 17px; border-radius: 5px; font: 8.1pt/1.45 Consolas, monospace; white-space: pre; overflow-x: auto; }
+  .file-label { color: var(--accent); font: bold 9pt Arial, sans-serif; margin: 15px 0 3px; }
+  .steps { counter-reset: step; list-style: none; padding: 0; }
+  .steps li { counter-increment: step; margin: 12px 0; padding-left: 35px; position: relative; }
+  .steps li::before { content: counter(step); position: absolute; left: 0; top: 0; width: 23px; height: 23px; text-align: center; line-height: 23px; border-radius: 50%; background: var(--sand); color: var(--ink); font-weight: bold; }
+  .url { display: inline-block; background: var(--cream); border: 1px solid var(--line); padding: 9px 13px; color: #704f3a; font-weight: bold; }
+  .footer { margin-top: 22px; padding-top: 8px; border-top: 1px solid var(--line); color: var(--muted); font-size: 8.5pt; }
+</style>
+</head>
+<body>
+  <section class="cover">
+    <div class="eyebrow">Project Report</div>
+    <h1>Paisa Expense Tracker</h1>
+    <p class="subtitle">A Flask-based expense management application for recording expenses, organizing categories, managing budgets, and viewing financial summaries.</p>
+    <div class="meta"><strong>Technology:</strong> Python, Flask, SQLAlchemy, SQLite, HTML, CSS, and JavaScript<br><strong>Repository:</strong> ExpenseTracker</div>
+  </section>
+
+  <section class="page">
+    <h2>1. Introduction</h2>
+    <div class="intro-box">
+      <p>Paisa Expense Tracker is a web application designed to make personal expense management simple and organized. Users can create an account, record daily expenses, assign expenses to categories, choose a payment method, and review their spending from a personal dashboard. The application also supports budget records and financial reports so users can understand their spending over time.</p>
+      <p>The project is built with Python and Flask using a maintainable application structure. Flask handles routing and request processing, Flask-SQLAlchemy maps application data to a local SQLite database, Flask-Login protects user-specific pages, and Flask-WTF provides form protection. The interface uses server-rendered Jinja templates with custom HTML, CSS, and JavaScript.</p>
+    </div>
+    <h3>Project Goals</h3>
+    <ul>
+      <li>Provide a secure, user-specific place to manage expenses.</li>
+      <li>Keep data local through an embedded SQLite database.</li>
+      <li>Offer a clean and responsive dashboard experience.</li>
+      <li>Use a modular Flask structure that can be extended later.</li>
+    </ul>
+    <h3>Main Features</h3>
+    <div class="grid">
+      <div class="card"><strong>Authentication</strong><br>Registration, login, logout, and password updates.</div>
+      <div class="card"><strong>Expense Management</strong><br>Add, edit, filter, and delete personal expenses.</div>
+      <div class="card"><strong>Categories</strong><br>Create and manage user-owned expense categories.</div>
+      <div class="card"><strong>Reports</strong><br>Review monthly and category-wise spending summaries.</div>
+    </div>
+  </section>
+
+  <section class="page">
+    <h2>2. Project Structure</h2>
+    <p>The project keeps application logic inside the <code>app</code> package and stores local runtime data inside <code>instance</code>.</p>
+    <div class="structure">ExpenseTracker/
+  |-- app/
+  |   |-- __init__.py
+  |   |-- auth.py
+  |   |-- extensions.py
+  |   |-- main.py
+  |   |-- models.py
+  |   |-- schema.py
+  |   |-- seed.py
+  |   |-- static/
+  |   |   |-- css/
+  |   |   |   `-- app.css
+  |   |   |-- js/
+  |   |   |   `-- controls.js
+  |   |   `-- favicon.svg
+  |   `-- templates/
+  |       |-- auth/
+  |       |   |-- login.html
+  |       |   `-- register.html
+  |       |-- errors/
+  |       |   |-- 404.html
+  |       |   `-- 500.html
+  |       |-- base.html
+  |       |-- dashboard.html
+  |       |-- expenses.html
+  |       |-- expense_form.html
+  |       |-- categories.html
+  |       |-- category_form.html
+  |       |-- reports.html
+  |       `-- account.html
+  |-- instance/
+  |   `-- expense.db
+  |-- config.py
+  |-- requirements.txt
+  |-- run.py
+  |-- .gitignore
+  |-- README.md
+  `-- expense_tracker_font_palette_mockup.html</div>
+    <h3>Responsibilities</h3>
+    <div class="grid">
+      <div class="card"><strong>run.py</strong><br>Application entry point used to start the development server.</div>
+      <div class="card"><strong>config.py</strong><br>Loads environment variables and configures SQLite and Flask settings.</div>
+      <div class="card"><strong>app/__init__.py</strong><br>Creates the Flask app, initializes extensions, creates tables, seeds categories, and registers blueprints.</div>
+      <div class="card"><strong>app/models.py</strong><br>Defines User, Category, Expense, and Budget database models.</div>
+      <div class="card"><strong>app/auth.py</strong><br>Provides registration, login, and logout routes.</div>
+      <div class="card"><strong>app/main.py</strong><br>Provides dashboard, expense, category, account, and report routes.</div>
+    </div>
+  </section>
+
+  <section class="page">
+    <h2>3. Main Codes</h2>
+    <p>The following excerpts show how the application starts, configures the database, and connects the backend to the interface.</p>
+    <div class="file-label">run.py - application entry point</div>
+    <h3>Application Entry Point: run.py</h3>
+    <pre>from app import create_app
+
+app = create_app()
+
+if __name__ == "__main__":
+    app.run(debug=True)</pre>
+    <div class="file-label">app/__init__.py - application factory</div>
+    <pre>def create_app(config_class=Config):
+    app = Flask(__name__, instance_relative_config=True)
+    app.config.from_object(config_class)
+
+    db.init_app(app)
+    migrate.init_app(app, db)
+    login_manager.init_app(app)
+    csrf.init_app(app)
+
+    with app.app_context():
+        db.create_all()
+        ensure_category_schema()
+        seed_defaults()
+
+    app.register_blueprint(auth_bp)
+    app.register_blueprint(main_bp)
+    return app</pre>
+    <div class="file-label">config.py - SQLite configuration</div>
+    <pre>PROJECT_DIR = Path(__file__).resolve().parent
+INSTANCE_DIR = PROJECT_DIR / "instance"
+
+class Config:
+    SECRET_KEY = os.getenv("SECRET_KEY", "change-this-local-secret")
+    SQLALCHEMY_DATABASE_URI = os.getenv(
+        "DATABASE_URL", f"sqlite:///{INSTANCE_DIR / 'expense.db'}"
+    )</pre>
+  </section>
+
+  <section class="page">
+    <h2>3. Main Codes Continued</h2>
+    <div class="file-label">app/models.py - database model</div>
+    <pre>class Expense(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(140), nullable=False)
+    amount = db.Column(db.Numeric(12, 2), nullable=False)
+    expense_date = db.Column(db.Date, default=date.today, nullable=False)
+    payment_method = db.Column(db.String(40), nullable=False)
+    category_id = db.Column(db.Integer, db.ForeignKey("category.id"), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)</pre>
+    <div class="file-label">app/auth.py - protected login route</div>
+    <pre>@auth_bp.route("/login", methods=["GET", "POST"])
+def login():
+    email = request.form.get("email", "").strip().lower()
+    password = request.form.get("password", "")
+    user = db.session.scalar(select(User).where(User.email == email))
+    if user and user.check_password(password):
+        login_user(user)
+        return redirect(url_for("main.dashboard"))
+    flash("Invalid email or password.", "error")
+    return render_template("auth/login.html")</pre>
+    <div class="file-label">app/main.py - dashboard route</div>
+    <pre>@main_bp.get("/dashboard")
+@login_required
+def dashboard():
+    today = date.today()
+    month_start = today.replace(day=1)
+    expenses = db.session.scalars(
+        select(Expense).where(Expense.user_id == current_user.id)
+    ).all()
+    total = sum((item.amount for item in expenses), Decimal("0"))
+    return render_template("dashboard.html", total=total)</pre>
+  </section>
+
+  <section class="page">
+    <h2>3. Frontend HTML Codes</h2>
+    <p>The templates extend a shared layout and use Jinja expressions to display data returned by Flask routes.</p>
+    <div class="file-label">app/templates/base.html - shared layout</div>
+    <pre>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;title&gt;{% block title %}Paisa{% endblock %}&lt;/title&gt;
+  &lt;link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  {% block content %}{% endblock %}
+  &lt;script src="{{ url_for('static', filename='js/controls.js') }}"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+    <div class="file-label">app/templates/dashboard.html - dashboard output</div>
+    <pre>{% extends "base.html" %}
+{% block content %}
+&lt;main class="dashboard"&gt;
+  &lt;h1&gt;Monthly overview&lt;/h1&gt;
+  &lt;section class="summary-card"&gt;
+    &lt;span&gt;Total spent&lt;/span&gt;
+    &lt;strong&gt;{{ format_currency(total) }}&lt;/strong&gt;
+  &lt;/section&gt;
+  {% for expense in recent %}
+    &lt;div&gt;{{ expense.title }} - {{ format_currency(expense.amount) }}&lt;/div&gt;
+  {% endfor %}
+&lt;/main&gt;
+{% endblock %}</pre>
+    <div class="file-label">app/templates/expense_form.html - expense form</div>
+    <pre>&lt;form method="post"&gt;
+  &lt;label for="title"&gt;Expense title&lt;/label&gt;
+  &lt;input id="title" name="title" required&gt;
+  &lt;label for="amount"&gt;Amount&lt;/label&gt;
+  &lt;input id="amount" name="amount" type="number" step="0.01" required&gt;
+  &lt;button type="submit"&gt;Save expense&lt;/button&gt;
+&lt;/form&gt;</pre>
+  </section>
+
+  <section class="page">
+    <h2>4. Output: Run and View in Browser</h2>
+    <ol class="steps">
+      <li>Open PowerShell or a terminal in the project directory.</li>
+      <li>Install the required Python packages:<pre>python -m pip install -r requirements.txt</pre></li>
+      <li>Start the Flask application:<pre>python run.py</pre></li>
+      <li>Open the following address in a browser:<div class="url">http://127.0.0.1:5000</div></li>
+      <li>Register a user account, log in, and use the dashboard to add expenses and view reports.</li>
+    </ol>
+    <h3>Expected Browser Output</h3>
+    <p>The browser opens the Paisa Expense Tracker interface. A new visitor is directed to the login page. After registration and login, the dashboard shows the current month's spending, budget information, recent expenses, and navigation to expenses, categories, reports, and account settings.</p>
+    <h3>Database Output</h3>
+    <p>On the first run, the application creates the local database at <code>instance/expense.db</code>. Default categories are seeded automatically. The database remains local and is not connected to an external database service.</p>
+    <div class="footer">Paisa Expense Tracker | Flask project report</div>
+  </section>
+</body>
+</html>
