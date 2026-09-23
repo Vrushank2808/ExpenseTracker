@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Paisa{% endblock %}</title>
+  <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}?v=3">
+  <script defer src="{{ url_for('static', filename='js/controls.js') }}"></script>
+</head>
+<body>
+<div class="app-preloader" id="app-preloader" aria-hidden="true"><div class="preloader-content"><span class="preloader-mark">₹</span><strong>Paisa</strong><span class="preloader-dots"><i></i><i></i><i></i></span></div></div>
+<div class="route-loader" id="route-loader" aria-hidden="true"></div>
+{% if current_user.is_authenticated %}
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header"><a class="brand" href="{{ url_for('main.dashboard') }}"><span class="brand-mark">₹</span><span>Paisa</span></a><button class="sidebar-close" type="button" aria-label="Close navigation" onclick="document.getElementById('sidebar').classList.remove('open')">Close</button></div>
+      <p class="nav-label">Workspace</p>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a class="{% if request.endpoint == 'main.dashboard' %}active{% endif %}" href="{{ url_for('main.dashboard') }}"><span>Overview</span></a>
+        <a class="{% if request.endpoint in ['main.expenses', 'main.edit_expense'] %}active{% endif %}" href="{{ url_for('main.expenses') }}"><span>Expenses</span></a>
+        <a class="{% if request.endpoint == 'main.category_list' %}active{% endif %}" href="{{ url_for('main.category_list') }}"><span>Categories</span></a>
+        <a class="{% if request.endpoint == 'main.reports' %}active{% endif %}" href="{{ url_for('main.reports') }}"><span>Reports</span></a>
+        <a class="{% if request.endpoint == 'main.account' %}active{% endif %}" href="{{ url_for('main.account') }}"><span>Account</span></a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="user-chip"><span class="avatar">{{ current_user.name[0]|upper }}</span><span>{{ current_user.name }}</span></div>
+        <form method="post" action="{{ url_for('auth.logout') }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button class="nav-button" type="submit">Sign out</button></form>
+      </div>
+    </aside>
+    <main class="main-content">
+      <header class="topbar"><button class="menu-toggle" type="button" aria-label="Open navigation" onclick="document.getElementById('sidebar').classList.toggle('open')">Menu</button><span class="topbar-date">{{ now().strftime('%A, %d %B %Y') if now is defined else '' }}</span><div class="topbar-account"><button class="profile-menu-trigger" type="button" aria-expanded="false" aria-haspopup="menu"><span class="avatar">{{ current_user.name[0]|upper }}</span><span class="profile-name">{{ current_user.name }}</span><span class="profile-chevron" aria-hidden="true"></span></button><div class="account-menu" role="menu"><a href="{{ url_for('main.account') }}" role="menuitem"><strong>{{ current_user.name }}</strong><small>{{ current_user.email }}</small></a><div class="menu-divider"></div><form method="post" action="{{ url_for('auth.logout') }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button type="submit" role="menuitem">Sign out</button></form></div></div></header>
+      {% with messages = get_flashed_messages(with_categories=true) %}{% if messages %}<div class="flash-stack">{% for category, message in messages %}<div class="flash {{ category }}">{{ message }}</div>{% endfor %}</div>{% endif %}{% endwith %}
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+{% else %}
+  {% with messages = get_flashed_messages(with_categories=true) %}{% if messages %}<div class="auth-flashes">{% for category, message in messages %}<div class="flash {{ category }}">{{ message }}</div>{% endfor %}</div>{% endif %}{% endwith %}
+  {% block auth_content %}{% endblock %}
+{% endif %}
+</body>
+</html>

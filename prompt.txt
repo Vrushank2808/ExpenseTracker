@@ -1,0 +1,1591 @@
+# EXPENSE TRACKING MANAGEMENT SYSTEM
+
+## Flask + Python + SQLite + Modern Minimalistic UI
+
+I am building a complete **Expense Tracking Management System** using Python and Flask.
+
+This is a portfolio/learning project, so I want the application to be **properly structured, maintainable, responsive, secure, and visually polished**, rather than being a basic CRUD application.
+
+I have **already created the project folder structure** and **already installed the required Python libraries**.
+
+Do NOT unnecessarily recreate, rename, or restructure my existing project.
+
+The application must use a **local SQLite database** stored inside the project itself.
+
+---
+
+# 1. TECHNOLOGY STACK
+
+Use the following stack:
+
+### Backend
+
+* Python
+* Flask
+* Flask-SQLAlchemy
+* Flask-WTF
+* WTForms
+* Flask-Login
+* Flask-Migrate
+* python-dotenv
+* Pandas where useful for report/data processing
+
+### Database
+
+* SQLite
+* SQLAlchemy ORM
+
+The database must remain local.
+
+Do NOT use:
+
+* MongoDB
+* PostgreSQL
+* MySQL
+* Firebase
+* Supabase
+* Neon
+* AWS
+* Railway database
+* Any external database service
+
+The SQLite database should be stored inside the project, preferably:
+
+```text
+instance/
+    expense.db
+```
+
+---
+
+# 2. FRONTEND TECHNOLOGY
+
+Use:
+
+* HTML5
+* CSS3
+* JavaScript
+* Bootstrap where useful
+* Chart.js for charts
+
+The UI should NOT look like a generic Bootstrap admin template.
+
+Bootstrap can be used for responsive layouts and components, but the visual design should be customized to match the design system described below.
+
+---
+
+# 3. DESIGN REFERENCE
+
+I have provided a mockup file containing the visual direction for this application.
+
+Treat that mockup as the **primary design reference**.
+
+The finished application should feel like the same design system as the mockup, not merely use the same colors.
+
+The design should preserve:
+
+* The warm neutral color palette
+* Minimalistic visual language
+* Clean card structure
+* Rounded corners
+* Generous whitespace
+* Subtle borders
+* Soft visual hierarchy
+* Sora headings
+* Inter body/UI text
+* Warm dark-brown typography
+* Simple data presentation
+* Uncluttered dashboard layout
+
+The mockup uses:
+
+```text
+Sora → headings
+Inter → body/UI text
+```
+
+with the heading example using Sora and the body text using Inter.
+
+Use the same font pairing throughout the entire application.
+
+---
+
+# 4. FONT SYSTEM
+
+Use:
+
+```css
+font-family: 'Sora', sans-serif;
+```
+
+for:
+
+* Main page headings
+* Dashboard section headings
+* Card headings
+* Important titles
+* Navigation brand where appropriate
+
+Use:
+
+```css
+font-family: 'Inter', sans-serif;
+```
+
+for:
+
+* Body text
+* Buttons
+* Form labels
+* Inputs
+* Tables
+* Navigation items
+* Expense descriptions
+* Numbers
+* Filters
+* Small metadata
+
+Load the fonts appropriately.
+
+Preferred:
+
+```html
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+```
+
+Do not introduce unnecessary font families.
+
+---
+
+# 5. COLOR PALETTE
+
+The complete website must be based around this palette:
+
+```text
+#edede9
+#d6ccc2
+#f5ebe0
+#e3d5ca
+#d5bdaf
+```
+
+These colors should form the core design system.
+
+Do not randomly introduce bright colors.
+
+Avoid:
+
+```text
+Bright blue
+Bright purple
+Bright green
+Bright red
+Neon colors
+Gradient-heavy designs
+```
+
+If a status color is absolutely necessary, use a muted version that does not visually fight against the primary palette.
+
+---
+
+# 6. COLOR USAGE / PERCENTAGE
+
+Use the palette approximately like this:
+
+### 40% — #f5ebe0
+
+Primary page/background color.
+
+Use for:
+
+* Main application background
+* Dashboard background
+* Large background areas
+
+The uploaded mockup uses `#f5ebe0` as its primary surrounding surface.
+
+---
+
+### 20% — #edede9
+
+Secondary neutral surface.
+
+Use for:
+
+* Sidebar/navigation areas where appropriate
+* Secondary sections
+* Filter backgrounds
+* Subtle UI surfaces
+* Empty states
+* Secondary cards
+
+---
+
+### 15% — #e3d5ca
+
+Secondary card/accent surface.
+
+Use for:
+
+* Summary cards
+* Selected states
+* Section highlights
+* Soft separators
+
+The mockup uses `#e3d5ca` for the "Total spent" summary card.
+
+---
+
+### 10% — #d5bdaf
+
+Stronger accent surface.
+
+Use sparingly for:
+
+* Important summary cards
+* Budget-related cards
+* Active navigation states
+* Selected filters
+* Important visual highlights
+
+The mockup uses `#d5bdaf` for the "Remaining budget" card.
+
+---
+
+### 10% — #d6ccc2
+
+Borders and secondary accents.
+
+Use for:
+
+* Borders
+* Dividers
+* Input borders
+* Table separators
+* Subtle backgrounds
+* Hover states
+
+---
+
+### 5% — White / dark warm text
+
+White may be used as a content surface where necessary.
+
+Dark warm-brown colors should be used for text.
+
+Examples from the mockup include:
+
+```text
+#4a3f35
+#8a7c6d
+#5c4d3e
+#3a2f26
+#2e241c
+```
+
+These warm text tones should be preferred over pure black.
+
+---
+
+# 7. IMPORTANT COLOR RULE
+
+Do NOT interpret the percentages as strict mathematical requirements for every page.
+
+They are a **visual hierarchy guideline**.
+
+The application should feel:
+
+```text
+Warm
+Calm
+Minimal
+Professional
+Modern
+Readable
+```
+
+The UI should not feel overly beige or monochromatic.
+
+Use the colors strategically.
+
+---
+
+# 8. GENERAL UI PHILOSOPHY
+
+The application should follow:
+
+> "Minimal but not empty."
+
+> "Modern but not flashy."
+
+> "Professional but approachable."
+
+> "Information-rich but easy to understand."
+
+Avoid unnecessary:
+
+* Animations
+* Gradients
+* Huge shadows
+* Excessive rounded elements
+* Excessive icons
+* Decorative illustrations
+* Glassmorphism
+* Excessive colors
+
+Every visual element should have a purpose.
+
+---
+
+# 9. SPACING
+
+Use generous whitespace.
+
+Do not pack information tightly together.
+
+Prefer:
+
+```text
+16px
+20px
+24px
+32px
+```
+
+spacing increments.
+
+Cards should have comfortable internal padding.
+
+The mockup demonstrates this clean spacing approach with padded cards and separated sections.
+
+---
+
+# 10. BORDER RADIUS
+
+Use subtle rounded corners.
+
+Recommended:
+
+```text
+8px
+10px
+12px
+```
+
+Avoid extremely rounded/pill-shaped interfaces everywhere.
+
+## The mockup primarily uses approximately `10px–12px` corner radii for cards and containers.
+
+# 11. SHADOWS
+
+Use shadows extremely sparingly.
+
+Prefer:
+
+```css
+box-shadow: 0 2px 8px rgba(...);
+```
+
+or subtle borders instead.
+
+The overall UI should rely more on:
+
+```text
+Background differences
+Borders
+Spacing
+Typography
+```
+
+than heavy shadows.
+
+---
+
+# 12. APPLICATION LAYOUT
+
+Create a modern dashboard structure.
+
+Desktop:
+
+```text
+┌───────────────────────────────────────────────────────────┐
+│ Logo / Expense Tracker                         Profile    │
+├──────────────┬────────────────────────────────────────────┤
+│              │                                            │
+│ Dashboard    │             Main Content                   │
+│              │                                            │
+│ Expenses     │                                            │
+│              │                                            │
+│ Categories   │                                            │
+│              │                                            │
+│ Reports      │                                            │
+│              │                                            │
+│ Budget       │                                            │
+│              │                                            │
+│ Profile      │                                            │
+│              │                                            │
+│ Logout       │                                            │
+│              │                                            │
+└──────────────┴────────────────────────────────────────────┘
+```
+
+However, do not make the sidebar visually heavy.
+
+The sidebar should be minimal and use the warm palette.
+
+On mobile, convert it into:
+
+* Collapsible sidebar
+* Offcanvas menu
+* Or clean mobile navigation
+
+---
+
+# 13. DASHBOARD DESIGN
+
+The dashboard should be the visual centerpiece of the application.
+
+At the top:
+
+```text
+Good morning, [User]
+
+Here's your spending overview.
+```
+
+Then summary cards.
+
+Example:
+
+```text
+┌────────────────────┐
+│ Total spent        │
+│                    │
+│ ₹24,860            │
+│ This month         │
+└────────────────────┘
+
+┌────────────────────┐
+│ Remaining budget   │
+│                    │
+│ ₹5,140             │
+│ September          │
+└────────────────────┘
+```
+
+Follow the mockup's simple summary-card approach.
+
+Do not overload the dashboard with 10+ KPI cards.
+
+Prefer approximately:
+
+```text
+2–4 important summary cards
+```
+
+---
+
+# 14. DASHBOARD CONTENT
+
+Include:
+
+### Summary
+
+* Total spent
+* Monthly spending
+* Today's spending
+* Remaining budget
+
+### Monthly overview
+
+A clean chart showing spending across the current month/year.
+
+### Category breakdown
+
+Show:
+
+```text
+Food
+Travel
+Shopping
+Bills
+Entertainment
+Healthcare
+```
+
+### Recent expenses
+
+Follow the structure of the provided mockup.
+
+The mockup uses a clean white content card containing recent expenses with simple left/right alignment and subtle separators.
+
+Use the same principle.
+
+---
+
+# 15. RECENT EXPENSE DESIGN
+
+Example:
+
+```text
+Recent expenses
+
+Groceries                         ₹1,240
+Electricity bill                 ₹2,010
+Coffee                              ₹180
+```
+
+Each row should contain:
+
+```text
+Expense name
+Category / date
+Amount
+```
+
+Do not create overly complicated expense cards.
+
+Use simple rows.
+
+---
+
+# 16. EXPENSE MANAGEMENT PAGE
+
+Create:
+
+```text
+Expenses
+```
+
+page.
+
+Top section:
+
+```text
+Expenses
+
+Track and manage your spending.
+```
+
+Then:
+
+```text
+[ Search expenses... ]
+
+[ Category ▼ ] [ Payment ▼ ]
+
+[ From date ] [ To date ]
+
+                         [+ Add expense]
+```
+
+Below:
+
+```text
+Expense table
+```
+
+---
+
+# 17. EXPENSE TABLE
+
+Use a clean table.
+
+Columns:
+
+```text
+Date
+Expense
+Category
+Payment
+Amount
+Actions
+```
+
+Example:
+
+```text
+23 Sep
+Groceries
+Food
+UPI
+₹1,240
+Edit  Delete
+```
+
+Avoid heavy table borders.
+
+Use subtle separators based around:
+
+```text
+#e3d5ca
+#d6ccc2
+```
+
+The mockup already demonstrates subtle `#e3d5ca` separators between expense rows.
+
+---
+
+# 18. ADD EXPENSE UI
+
+Create a clean form.
+
+Fields:
+
+```text
+Expense title
+Amount
+Category
+Date
+Payment method
+Description
+```
+
+Use a two-column layout on desktop where appropriate.
+
+Example:
+
+```text
+Title                Amount
+
+Category             Payment method
+
+Date
+
+Description
+```
+
+On mobile everything should become one column.
+
+---
+
+# 19. FORM DESIGN
+
+Forms must be extremely readable.
+
+Use:
+
+* Clear labels
+* Comfortable input height
+* Soft borders
+* Warm background
+* Focus states
+* Proper validation messages
+
+Avoid excessive floating labels.
+
+Example:
+
+```text
+Expense title
+
+[ Groceries________________ ]
+```
+
+Input styling should fit the overall palette.
+
+---
+
+# 20. BUTTON DESIGN
+
+Use restrained buttons.
+
+Primary button:
+
+```text
++ Add expense
+```
+
+Secondary:
+
+```text
+Cancel
+```
+
+Danger:
+
+```text
+Delete
+```
+
+Do not make every button brightly colored.
+
+Primary actions should use the strongest appropriate palette color while preserving readable contrast.
+
+---
+
+# 21. CATEGORY MANAGEMENT
+
+Create a clean category page.
+
+Example:
+
+```text
+Categories
+
+Manage your expense categories.
+
+Food
+Travel
+Shopping
+Bills
+Entertainment
+Healthcare
+Education
+Rent
+```
+
+Each category can be displayed as a simple card or list row.
+
+Allow:
+
+```text
+Add
+Edit
+Delete
+```
+
+Do not make category cards excessively decorative.
+
+---
+
+# 22. REPORTS PAGE
+
+The reports page should be analytical but still minimal.
+
+Header:
+
+```text
+Reports
+
+Understand where your money is going.
+```
+
+Filters:
+
+```text
+Year
+Month
+Category
+Date range
+```
+
+Then summary:
+
+```text
+Total expenses
+Transactions
+Average expense
+Highest expense
+```
+
+Then charts.
+
+---
+
+# 23. CHART DESIGN
+
+Use Chart.js.
+
+Charts must follow the same palette.
+
+Do NOT use the default Chart.js rainbow colors.
+
+Use the application's palette:
+
+```text
+#edede9
+#d6ccc2
+#f5ebe0
+#e3d5ca
+#d5bdaf
+```
+
+Charts should be:
+
+* Minimal
+* Clean
+* Readable
+* Properly labeled
+* Responsive
+
+Do not use excessive grid lines.
+
+Use warm text colors for labels.
+
+---
+
+# 24. MONTHLY REPORT
+
+Example:
+
+```text
+September 2026
+
+Total spent
+₹24,860
+
+Monthly trend
+[Chart]
+
+Category breakdown
+[Chart]
+
+Recent expenses
+[List]
+```
+
+---
+
+# 25. YEARLY REPORT
+
+Allow the user to select a year.
+
+Example:
+
+```text
+2026
+
+January       ₹18,500
+February      ₹21,200
+March         ₹17,800
+...
+```
+
+Display a monthly chart.
+
+---
+
+# 26. CATEGORY REPORT
+
+Show:
+
+```text
+Food          ₹8,500      35%
+Travel        ₹4,200      17%
+Shopping      ₹7,800      32%
+Bills         ₹4,360      16%
+```
+
+Visualize with a doughnut chart.
+
+---
+
+# 27. BUDGET UI
+
+If budget management is implemented, make it visually consistent.
+
+Example:
+
+```text
+September budget
+
+₹24,860 spent
+₹5,140 remaining
+
+████████████████░░░░
+83% used
+```
+
+Use a subtle progress bar rather than a visually aggressive progress indicator.
+
+---
+
+# 28. PROFILE PAGE
+
+Create:
+
+```text
+Profile
+
+Name
+Email
+Member since
+
+[Edit profile]
+```
+
+If password changes are implemented:
+
+```text
+Change password
+Current password
+New password
+Confirm password
+```
+
+---
+
+# 29. LOGIN PAGE
+
+The login page should also use the same design system.
+
+Do NOT create a generic blue Bootstrap login page.
+
+Example:
+
+```text
+Expense Tracker
+
+Manage your spending simply.
+
+Email
+[________________]
+
+Password
+[________________]
+
+[ Sign in ]
+
+Don't have an account?
+Create account
+```
+
+Use:
+
+```text
+#f5ebe0
+```
+
+as the surrounding background with a clean content card.
+
+---
+
+# 30. REGISTER PAGE
+
+Same visual language as login.
+
+Keep it simple.
+
+Fields:
+
+```text
+Name
+Email
+Password
+Confirm password
+```
+
+---
+
+# 31. RESPONSIVE DESIGN
+
+The application MUST work on:
+
+```text
+Desktop
+Laptop
+Tablet
+Mobile
+```
+
+Desktop:
+
+```text
+Sidebar + Main content
+```
+
+Tablet:
+
+```text
+Compact sidebar/navigation
+```
+
+Mobile:
+
+```text
+Top navigation / offcanvas menu
+Single-column cards
+Responsive tables
+Stacked forms
+```
+
+Do not allow horizontal scrolling on normal pages.
+
+---
+
+# 32. ACCESSIBILITY
+
+Use:
+
+* Proper labels
+* Semantic HTML
+* Keyboard-accessible controls
+* Visible focus states
+* Sufficient contrast
+* Descriptive button text
+* Accessible form errors
+
+Do not rely only on color to communicate information.
+
+---
+
+# 33. DATABASE ARCHITECTURE
+
+Use:
+
+### User
+
+```text
+id
+name
+email
+password_hash
+created_at
+updated_at
+```
+
+### Category
+
+```text
+id
+name
+description
+created_at
+```
+
+### Expense
+
+```text
+id
+title
+amount
+description
+expense_date
+payment_method
+category_id
+user_id
+created_at
+updated_at
+```
+
+### Budget
+
+Optional:
+
+```text
+id
+amount
+month
+year
+category_id
+user_id
+created_at
+updated_at
+```
+
+Relationships:
+
+```text
+User
+ │
+ ├───────────────< Expense
+ │
+ └───────────────< Budget
+
+Category
+ │
+ ├───────────────< Expense
+ │
+ └───────────────< Budget
+```
+
+---
+
+# 34. AUTHENTICATION
+
+Use Flask-Login.
+
+Implement:
+
+```text
+Register
+Login
+Logout
+Protected routes
+```
+
+Passwords must be hashed.
+
+Use:
+
+```python
+generate_password_hash()
+check_password_hash()
+```
+
+A user must only see their own expenses.
+
+---
+
+# 35. CRUD
+
+Implement complete CRUD for:
+
+### Expenses
+
+```text
+Create
+Read
+Update
+Delete
+```
+
+### Categories
+
+```text
+Create
+Read
+Update
+Delete
+```
+
+Budget CRUD if the budget module is implemented.
+
+---
+
+# 36. SEARCH AND FILTERING
+
+Support:
+
+```text
+Search
+Category
+Payment method
+Date
+Date range
+Month
+Year
+```
+
+Filters should work together.
+
+Example:
+
+```text
+Category = Food
+Month = September
+Year = 2026
+```
+
+should show only matching records.
+
+---
+
+# 37. REPORT CALCULATIONS
+
+Reports must use actual database data.
+
+Never hard-code:
+
+```text
+₹24,860
+₹5,140
+```
+
+Those values are only examples from the design mockup.
+
+The actual application must calculate:
+
+```text
+SUM
+COUNT
+AVERAGE
+MIN
+MAX
+```
+
+from the user's expenses.
+
+---
+
+# 38. SECURITY
+
+Implement:
+
+* CSRF protection
+* Password hashing
+* Authentication
+* Authorization
+* Input validation
+* SQLAlchemy ORM
+* Ownership checks
+* Secure session handling
+
+Most importantly:
+
+User A must not be able to access User B's expense simply by changing an ID in the URL.
+
+---
+
+# 39. FLASH MESSAGES
+
+Use clean Bootstrap alerts styled to match the palette.
+
+Examples:
+
+```text
+Expense added successfully.
+Expense updated successfully.
+Expense deleted successfully.
+Category created successfully.
+Invalid credentials.
+```
+
+Do not use browser `alert()` for normal application messages.
+
+---
+
+# 40. ERROR PAGES
+
+Create:
+
+```text
+404.html
+500.html
+```
+
+They must follow the same design system.
+
+Example:
+
+```text
+404
+
+Page not found.
+
+The page you're looking for doesn't exist.
+
+[Back to dashboard]
+```
+
+---
+
+# 41. CODE ARCHITECTURE
+
+Use Flask's:
+
+```text
+Application Factory
+Blueprints
+Models
+Forms
+Templates
+Static files
+```
+
+Do not create one giant `app.py`.
+
+Prefer:
+
+```text
+app/
+├── __init__.py
+├── models/
+├── routes/
+├── forms/
+├── templates/
+└── static/
+```
+
+Adapt this to my existing folder structure.
+
+---
+
+# 42. EXISTING PROJECT STRUCTURE
+
+I have already created my folder structure.
+
+Before writing code:
+
+1. Inspect my existing structure.
+2. Understand the purpose of each directory.
+3. Reuse existing files.
+4. Do not unnecessarily rename files.
+5. Do not unnecessarily create duplicate files.
+6. Do not overwrite existing code blindly.
+
+If you need to see a file, ask me to provide it.
+
+---
+
+# 43. IMPORTANT AI DEVELOPMENT RULE
+
+DO NOT generate the entire project in one response.
+
+Build it incrementally.
+
+For every development step:
+
+### 1. Explain
+
+Tell me what we're implementing.
+
+### 2. Files
+
+Tell me exactly which files will be changed.
+
+### 3. Code
+
+Provide complete code for those files.
+
+### 4. Explanation
+
+Explain important sections of the code.
+
+### 5. Testing
+
+Give me the exact command to run.
+
+### 6. Expected result
+
+Tell me what I should see.
+
+### 7. Stop
+
+Wait for me to confirm that it works before proceeding to the next major module.
+
+---
+
+# 44. DEVELOPMENT ORDER
+
+Follow this order:
+
+## STEP 1
+
+Verify:
+
+```text
+Flask
+Application Factory
+Configuration
+SQLite
+SQLAlchemy
+```
+
+---
+
+## STEP 2
+
+Create:
+
+```text
+User
+Category
+Expense
+Budget
+```
+
+models.
+
+---
+
+## STEP 3
+
+Configure Flask-Migrate.
+
+---
+
+## STEP 4
+
+Create authentication:
+
+```text
+Register
+Login
+Logout
+```
+
+---
+
+## STEP 5
+
+Create the main application layout:
+
+```text
+Navbar
+Sidebar
+Base template
+Global CSS
+```
+
+Implement the design system at this stage.
+
+---
+
+## STEP 6
+
+Build the Dashboard.
+
+Use the provided mockup as the visual reference.
+
+---
+
+## STEP 7
+
+Build Expense CRUD.
+
+---
+
+## STEP 8
+
+Build Category management.
+
+---
+
+## STEP 9
+
+Build Search and Filtering.
+
+---
+
+## STEP 10
+
+Build Reports.
+
+---
+
+## STEP 11
+
+Build Chart.js visualizations.
+
+---
+
+## STEP 12
+
+Build Budget management.
+
+---
+
+## STEP 13
+
+Build CSV export.
+
+---
+
+## STEP 14
+
+Build optional PDF reports.
+
+---
+
+## STEP 15
+
+Implement final validation, authorization, error handling and responsive improvements.
+
+---
+
+# 45. DESIGN CONSISTENCY REQUIREMENT
+
+Every page must look like it belongs to the same application.
+
+Do not create:
+
+* One style for dashboard
+* Another style for expenses
+* Another style for reports
+* Another style for login
+
+Everything must use the same:
+
+```text
+Color palette
+Typography
+Spacing
+Borders
+Radius
+Buttons
+Forms
+Cards
+Navigation
+```
+
+The mockup is the visual foundation for the entire application.
+
+---
+
+# 46. DO NOT OVERDESIGN
+
+This is extremely important.
+
+I want:
+
+```text
+Minimalistic
+Modern
+Clean
+Professional
+Understandable
+```
+
+I do NOT want:
+
+```text
+Overly colorful
+Over-animated
+Glassmorphism
+Neon dashboards
+Huge gradients
+Excessive shadows
+Crowded cards
+Unnecessary illustrations
+```
+
+The UI should look like a thoughtfully designed financial/productivity application.
+
+---
+
+# 47. FINAL USER EXPERIENCE
+
+The final application should feel like:
+
+> A calm, modern personal finance dashboard where the user can quickly understand where their money is going.
+
+The user should be able to open the dashboard and immediately understand:
+
+```text
+How much have I spent?
+How much did I spend this month?
+How much budget remains?
+Where is my money going?
+What were my latest expenses?
+How is my spending changing over time?
+```
+
+The interface should make these answers obvious without requiring the user to navigate through multiple pages.
+
+---
+
+# 48. FIRST RESPONSE REQUIREMENT
+
+Do NOT start coding the entire application.
+
+For your first response:
+
+1. Analyze the existing project architecture.
+2. Confirm how you will integrate the design system.
+3. Explain the database architecture.
+4. Explain the UI architecture.
+5. Explain the development phases.
+6. Identify any missing information you genuinely need.
+7. Then begin only with the first required implementation step.
+
+The first implementation step should be:
+
+```text
+Flask configuration
++
+Application Factory
++
+Local SQLite configuration
++
+SQLAlchemy setup
+```
+
+Do not proceed to authentication until this foundation has been tested successfully.
+
+Remember:
+
+**The uploaded mockup is the visual reference.**
+
+The application should not merely copy individual components from it. It should adopt its overall visual language, typography, spacing, color hierarchy, card treatment, and minimalistic approach throughout the entire Expense Tracking Management System.
